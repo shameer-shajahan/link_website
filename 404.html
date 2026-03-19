@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html data-wf-domain="spacekit-template.linktdmc.io" data-wf-page="66ec6afe3cc26899cbbb3009" data-wf-site="66ec6afe3cc26899cbbb300a" lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Page Not Found - Link Designers Home</title>
+        <meta content="Page Not Found" property="twitter:title"/>
+        <meta property="og:type" content="website"/>
+        <meta content="summary_large_image" name="twitter:card"/>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <link href="/css/1.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/styles.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/transitions.css" rel="stylesheet" type="text/css"/>
+     
+        <script type="text/javascript">
+            !function(o, c) {
+                var n = c.documentElement
+                  , t = " w-mod-";
+                n.className += t + "js",
+                ("ontouchstart"in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
+            }(window, document);
+        </script>
+        <link href="/link.png" rel="shortcut icon" type="image/x-icon"/>
+        <link href="/link.png" rel="apple-touch-icon"/>
+        
+        <style>
+           .page-404 {
+               min-height: 100vh;
+               display: flex;
+               flex-direction: column;
+               align-items: center;
+               justify-content: center;
+               background-color: #f7f5f0; /* Matches brand background */
+               text-align: center;
+               position: relative;
+               overflow: hidden;
+               padding: 2rem;
+           }
+           .error-title {
+               font-family: inherit;
+               font-size: clamp(6rem, 15vw, 15rem);
+               font-weight: 700;
+               color: #ff8c00; /* Brand orange */
+               line-height: 1;
+               margin-bottom: 0.5rem;
+               z-index: 10;
+               position: relative;
+               letter-spacing: -0.05em;
+               text-shadow: 4px 4px 0px rgba(0,0,0,0.05);
+           }
+           .error-subtitle {
+               font-size: clamp(1.5rem, 4vw, 2.5rem);
+               font-weight: 600;
+               margin-bottom: 1rem;
+               z-index: 10;
+               position: relative;
+           }
+           .error-desc {
+               max-width: 450px;
+               font-size: 1.1rem;
+               opacity: 0.7;
+               margin-bottom: 2.5rem;
+               z-index: 10;
+               line-height: 1.6;
+               position: relative;
+           }
+           
+           /* Floating interactive papers */
+           .paper-container {
+               position: absolute;
+               top: 0; left: 0; width: 100%; height: 100%;
+               pointer-events: none;
+               z-index: 1;
+               overflow: hidden;
+           }
+           .paper-sheet {
+               position: absolute;
+               background: white;
+               box-shadow: 0 15px 35px rgba(0,0,0,0.05), 0 5px 15px rgba(0,0,0,0.03);
+               border: 1px solid rgba(0,0,0,0.05);
+               display: flex;
+               flex-direction: column;
+               gap: 12px;
+               padding: 20px;
+               border-radius: 4px;
+               width: 140px;
+               height: 180px;
+               will-change: transform;
+           }
+           .paper-sheet::before {
+               content: ''; width: 40%; height: 8px;
+               background: #eaeaea; border-radius: 4px;
+           }
+           .paper-sheet::after {
+               content: ''; width: 80%; height: 8px;
+               background: #eaeaea; border-radius: 4px;
+           }
+           .jammed-paper {
+               position: absolute;
+               right: 15%;
+               top: 25%;
+               transform-origin: top left;
+               background: #fff;
+               border: 1px solid #ccc;
+               width: 160px;
+               height: 200px;
+               z-index: 2;
+               box-shadow: inset 0 -10px 20px rgba(0,0,0,0.05);
+               border-bottom-right-radius: 10px;
+               border-bottom-left-radius: 15px;
+           }
+           
+           /* Particles */
+           .particle {
+               position: absolute;
+               background: #ff8c00;
+               border-radius: 50%;
+               opacity: 0.5;
+               animation: floatUp linear infinite;
+               bottom: -20px;
+           }
+           @keyframes floatUp {
+               0% { transform: translateY(0) scale(0); opacity: 0; }
+               20% { opacity: 0.6; transform: scale(1); }
+               80% { opacity: 0.4; transform: scale(0.8); }
+               100% { transform: translateY(-80vh) scale(0); opacity: 0; }
+           }
+           @keyframes errorPulse {
+               0% { transform: scale(1); }
+               100% { transform: scale(1.02); color: #ff6b00; }
+           }
+           @keyframes jammedShake {
+               0% { transform: rotate(-15deg) translate(0, 0); }
+               20% { transform: rotate(-14deg) translate(-2px, 1px); }
+               40% { transform: rotate(-16deg) translate(2px, -1px); }
+               60% { transform: rotate(-15deg) translate(-1px, 2px); }
+               80% { transform: rotate(-15deg) translate(2px, -2px); }
+               100% { transform: rotate(-15deg) translate(0, 0); }
+           }
+           
+           .error-button-wrapper {
+               z-index: 10;
+               position: relative;
+           }
+        </style>
+    </head>
+    <body class="home-page">
+
+     <!-- Page Transition Overlay -->
+    <div class="page-transition"><img src="/link.png" alt="Link Designers Home" class="logo-img"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <header class="liquid-header">
+        <div class="header-glass">
+            <a href="index.html" class="logo-link">
+                <img src="/link.png" alt="Link Designers Home" class="logo-img">
+            </a>
+
+            <!-- Simple Menu Button -->
+            <div class="menu-button" id="menuButton">
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+            </div>
+            <nav class="expanded-menu">
+                <ul>
+                    <li><a href="index.html" class="menu-link">Home</a></li>
+                    <li><a href="product.html" class="menu-link">Products</a></li>
+                    <li><a href="service.html" class="menu-link">Services</a></li>
+                    <li><a href="gallery.html" class="menu-link">Gallery</a></li>
+                    <li><a href="staff.html" class="menu-link">Staff</a></li>
+                    <li><a href="contact.html" class="menu-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-404">
+        <!-- Interactive Paper Elements corresponding to 404-animations.js -->
+        <div class="paper-container">
+            <!-- Floating Papers -->
+            <div class="paper-sheet" data-speed="0.8" style="top: 20%; left: 15%; transform: rotate(12deg);"></div>
+            <div class="paper-sheet" data-speed="1.5" style="top: 60%; left: 8%; transform: rotate(-25deg); width: 100px; height: 140px;"></div>
+            <div class="paper-sheet" data-speed="1.2" style="top: 15%; right: 20%; transform: rotate(-15deg); width: 120px; height: 160px;"></div>
+            <div class="paper-sheet" data-speed="0.5" style="top: 70%; right: 12%; transform: rotate(35deg);"></div>
+            
+            <!-- Jammed Paper -->
+            <div class="jammed-paper">
+                <div style="width: 60%; height: 6px; background:#ddd; border-radius:3px; margin: 15px auto;"></div>
+                <div style="width: 80%; height: 6px; background:#eee; border-radius:3px; margin: 10px auto;"></div>
+                <div style="width: 50%; height: 6px; background:#eee; border-radius:3px; margin: 10px auto;"></div>
+            </div>
+            
+            <!-- Particles -->
+            <div class="particle" style="left: 20%; width: 10px; height: 10px;"></div>
+            <div class="particle" style="left: 40%; width: 8px; height: 8px;"></div>
+            <div class="particle" style="left: 65%; width: 15px; height: 15px;"></div>
+            <div class="particle" style="left: 80%; width: 6px; height: 6px;"></div>
+            <div class="particle" style="left: 90%; width: 12px; height: 12px;"></div>
+        </div>
+
+        <h1 class="error-title">404</h1>
+        <h2 class="error-subtitle">Out of Paper</h2>
+        <p class="error-desc">We couldn't print the page you were looking for. It might have been moved, renamed, or experienced a severe paper jam.</p>
+        
+        <div class="error-button-wrapper">
+            <a href="index.html" class="black-button error-button w-inline-block">
+                <div class="text-weight-medium caps">Return to Homepage</div>
+            </a>
+        </div>
+    </main>
+
+    <section style="background: white; position: relative; z-index: 10;">
+        <div class="padding-global">
+            <div class="w-layout-blockcontainer container w-container">
+                <div class="footer-component">
+                    <div data-w-id="840cf11d-6f08-20b7-2ae0-7b73f27382ee" class="footer-heading">
+                        <img loading="lazy" src="/link.png" alt="Logo" class="logo-footer"/>
+                    </div>
+                    <div data-w-id="840cf11d-6f08-20b7-2ae0-7b73f27382f0" class="w-layout-grid footer-grid">
+                        <div class="footer-grid-wrap">
+                            <div class="footer-text-size text-weight-medium">Explore</div>
+                            <div class="footer-links-wrapper">
+                                <a href="index.html" class="footer-link">Home</a>
+                                <a href="product.html" class="footer-link">Products</a>
+                                <a href="service.html" class="footer-link">Services</a>
+                                <a href="gallery.html" class="footer-link">Gallery</a>
+                            </div>
+                        </div>
+                        <div class="footer-grid-wrap">
+                            <div class="footer-text-size text-weight-medium">Pages</div>
+                            <a href="staff.html" class="footer-link">Staff</a>
+                            <a href="contact.html" class="footer-link">Contact</a>
+                        </div>
+                        <div class="footer-grid-wrap">
+                            <div class="footer-text-size text-weight-medium">Social</div>
+                            <div class="footer-links-wrapper">
+                                <a href="https://www.instagram.com/linkdesignershome/" target="_blank" rel="noopener noreferrer" class="footer-link">Instagram</a>
+                                <a href="https://jsdl.in/DT-99EIIU2IMA2" target="_blank" rel="noopener noreferrer" class="footer-link">Justdial</a>
+                            </div>
+                        </div>
+                        <div class="footer-grid-wrap">
+                            <div class="footer-text-size text-weight-medium">Location</div>
+                            <a href="https://www.google.com/maps/search/?api=1&amp;query=Fathima%20Building%2C%20Near%20Medical%20College%2C%20Beach%20Road%2C%20Anjipadam%2C%20Alappuzha-688005%2C%20Kerala" target="_blank" rel="noopener noreferrer" class="footer-link">Get Directions</a>
+                            <a href="https://share.google/npsTbu9TPpR7WcyxH" target="_blank" rel="noopener noreferrer" class="footer-link">Google Share</a>
+                        </div>
+                    </div>
+                    <div data-w-id="840cf11d-6f08-20b7-2ae0-7b73f2738313" class="footer-social-wrapper">
+                        <a href="https://jsdl.in/DT-99EIIU2IMA2" target="_blank" rel="noopener noreferrer" class="footer-social w-inline-block">
+                            <img loading="lazy" src="/images/66ec6afe3cc26899cbbb303d_Group.svg" alt="Justdial" class="icon-embed"/>
+                        </a>
+                        <a href="https://www.instagram.com/linkdesignershome/" target="_blank" rel="noopener noreferrer" class="footer-social w-inline-block">
+                            <img loading="lazy" src="/images/66ec6afe3cc26899cbbb303a_logo-instagram%201.svg" alt="Instagram" class="icon-embed"/>
+                        </a>
+                        <a href="https://www.google.com/maps/search/?api=1&amp;query=Fathima%20Building%2C%20Near%20Medical%20College%2C%20Beach%20Road%2C%20Anjipadam%2C%20Alappuzha-688005%2C%20Kerala" target="_blank" rel="noopener noreferrer" class="footer-social w-inline-block">
+                            <img loading="lazy" src="/images/66ec73d25cc29a183b05252f_Arrow.svg" alt="Directions" class="icon-embed"/>
+                        </a>
+                    </div>
+                    <div data-w-id="840cf11d-6f08-20b7-2ae0-7b73f273831c" class="footer-links-wrapper">
+                        <div class="footer-links">
+                            <a href="product.html" class="footer-link">Products</a>
+                            <div class="vertical-line"></div>
+                            <a href="gallery.html" class="footer-link">Gallery</a>
+                            <div class="vertical-line"></div>
+                            <a href="contact.html" class="footer-link">Contact</a>
+                        </div>
+                        <div class="credits-wrapper">
+                            <p>Copyright ©</p>
+                            <a href="https://jsdl.in/DT-99EIIU2IMA2" target="_blank" rel="noopener noreferrer" class="credits w-inline-block">
+                                <p class="paragraph">
+                                    Listing source: <span class="text-color-black">Justdial</span>
+                                </p>
+                            </a>
+                            <a href="https://www.instagram.com/linkdesignershome/" target="_blank" rel="noopener noreferrer" class="credits w-inline-block">
+                                <p class="paragraph">
+                                    Social: <span class="text-color-black">Instagram</span>
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/js/1.js" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="/js/2.js" type="text/javascript"></script>
+    <script src="/js/ScrollTrigger.min.js" type="text/javascript"></script>
+    <script src="/js/404-animations.js" type="text/javascript"></script>
+    <script src="/js/gsap.min.js" type="text/javascript"></script>
+    <script src="/js/lenis.min.js" type="text/javascript"></script>
+    <script src="/js/main.js" type="text/javascript"></script>
+</body>
+</html>

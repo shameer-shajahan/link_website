@@ -1,0 +1,36 @@
+/* Page Transition Overlay */
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--vibrant-amber);
+    z-index: 100000;
+    pointer-events: none;
+    transform: translateY(100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+/* Base modifications for Lenis */
+html.lenis, html.lenis body {
+    height: auto;
+}
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
+}
