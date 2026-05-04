@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>naslippy | Custom Name Slip Generator</title>
+  <meta name="description" content="naslippy helps schools and classrooms generate, customise, preview, and send polished name slips from one smooth workflow.">
+  <meta name="keywords" content="naslippy, name slip generator, name slip customise, student slip preview, printable name slip">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="naslippy">
+  <meta property="og:title" content="naslippy | Custom Name Slip Generator">
+  <meta property="og:description" content="Generate, customise, and preview student name slips with a fast, print-ready workflow.">
+  <meta property="og:image" content="/link.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="naslippy | Custom Name Slip Generator">
+  <meta name="twitter:description" content="Open naslippy and customise printable student name slips in seconds.">
+  <link rel="canonical" href="/">
+  <link rel="icon" href="/link.png" type="image/png">
+  <script>
+    document.documentElement.classList.add('js');
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "naslippy",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any",
+      "url": "https://nameslip.linktdmc.com",
+      "description": "naslippy helps users generate, customise, preview, and print polished student name slips."
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+    :root {
+      --primary: #2150d8;
+      --primary-deep: #163798;
+      --primary-soft: #dce8ff;
+      --secondary: #ff7f50;
+      --secondary-soft: #ffe0d2;
+      --surface: rgba(255, 255, 255, 0.92);
+      --surface-strong: #ffffff;
+      --ink: #182340;
+      --ink-soft: #66728f;
+      --line: rgba(33, 80, 216, 0.12);
+      --line-strong: rgba(33, 80, 216, 0.22);
+      --shadow-xl: 0 28px 70px rgba(24, 35, 64, 0.16);
+      --shadow-lg: 0 18px 40px rgba(24, 35, 64, 0.12);
+      --radius-2xl: 34px;
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Nunito', sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 16%, rgba(33, 80, 216, 0.16), transparent 26%),
+        radial-gradient(circle at 86% 14%, rgba(255, 127, 80, 0.16), transparent 24%),
+        radial-gradient(circle at 78% 82%, rgba(104, 163, 255, 0.12), transparent 22%),
+        linear-gradient(180deg, #f8fbff 0%, #eef4ff 52%, #f7faff 100%);
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    body::before {
+      background-image:
+        linear-gradient(rgba(33, 80, 216, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(33, 80, 216, 0.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+      opacity: 0.8;
+    }
+
+    body::after {
+      z-index: -1;
+      opacity: 0.12;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E");
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .scroll-progress {
+      position: fixed;
+      inset: 0 0 auto;
+      height: 4px;
+      z-index: 30;
+      background: rgba(24, 35, 64, 0.06);
+      transform-origin: left center;
+    }
+
+    .scroll-progress span {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), #5a84ff 58%, var(--secondary));
+      transform: scaleX(0);
+      transform-origin: left center;
+    }
+
+    .page-shell {
+      width: min(1360px, calc(100vw - 28px));
+      margin: 0 auto;
+      padding: 24px 0 44px;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 14px;
+      z-index: 24;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 24px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, rgba(33, 80, 216, 0.96), rgba(86, 128, 255, 0.93));
+      color: #ffffff;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    .site-header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 24%, rgba(255, 255, 255, 0.22), transparent 26%),
+        radial-gradient(circle at 92% 88%, rgba(255, 255, 255, 0.12), transparent 24%);
+      pointer-events: none;
+    }
+
+    .brand-lockup {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+      z-index: 1;
+    }
+
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      backdrop-filter: blur(10px);
+      font-family: 'Fredoka', cursive;
+      font-size: 1.55rem;
+      color: #ffffff;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+
+    .brand-copy {
+      display: grid;
+      gap: 3px;
+    }
+
+    .brand-copy strong,
+    .headline,
+    .section-title,
+    .feature-card h3,
+    .step-card h3,
+    .final-panel h2,
+    .mock-title,
+    .offer-title {
+      font-family: 'Fredoka', cursive;
+      font-weight: 600;
+    }
+
+    .brand-copy strong {
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: lowercase;
+    }
+
+    .brand-copy span {
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.92rem;
+    }
+
+    .header-meta {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 1;
+    }
+
+    .header-domain {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: rgba(255, 255, 255, 0.88);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .header-domain::before,
+    .mini-domain::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #8cf7ce;
+      box-shadow: 0 0 0 7px rgba(140, 247, 206, 0.16);
+    }
+
+    .header-cta,
+    .hero-cta,
+    .final-cta,
+    .mock-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border-radius: 999px;
+      border: 0;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition:
+        transform 220ms var(--ease-out),
+        box-shadow 220ms var(--ease-out),
+        filter 220ms var(--ease-out);
+    }
+
+    .header-cta,
+    .hero-cta,
+    .final-cta {
+      padding: 15px 24px;
+      background: linear-gradient(135deg, #ff8f5f, #ff6b49);
+      color: #ffffff;
+      box-shadow: 0 18px 32px rgba(217, 75, 104, 0.22);
+    }
+
+    .mock-cta {
+      padding: 13px 18px;
+      background: linear-gradient(135deg, var(--primary), #5a84ff);
+      color: #ffffff;
+      box-shadow: 0 14px 30px rgba(33, 80, 216, 0.22);
+    }
+
+    .header-cta::after,
+    .hero-cta::after,
+    .final-cta::after,
+    .mock-cta::after {
+      content: "->";
+      font-size: 1rem;
+      transition: transform 220ms var(--ease-out);
+    }
+
+    .header-cta:hover,
+    .hero-cta:hover,
+    .final-cta:hover,
+    .mock-cta:hover {
+      transform: translateY(-3px);
+      filter: saturate(1.06);
+    }
+
+    .header-cta:hover::after,
+    .hero-cta:hover::after,
+    .final-cta:hover::after,
+    .mock-cta:hover::after {
+      transform: translate(3px, -3px);
+    }
+
+    main {
+      display: grid;
+      gap: 28px;
+      margin-top: 24px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 0.96fr) minmax(360px, 1.04fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .hero-copy,
+    .hero-workspace,
+    .signal-bar,
+    .feature-card,
+    .workflow-wrap,
+    .final-panel {
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      background: var(--surface);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-copy {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 4.6vw, 52px);
+      border-radius: var(--radius-2xl);
+      isolation: isolate;
+    }
+
+    .hero-copy::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at top right, rgba(90, 132, 255, 0.2), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(255, 127, 80, 0.16), transparent 36%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(33, 80, 216, 0.08);
+      color: var(--primary-deep);
+      font-size: 0.79rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), #6da2ff);
+      box-shadow: 0 0 0 6px rgba(33, 80, 216, 0.12);
+    }
+
+    .headline {
+      margin: 20px 0 0;
+      font-size: clamp(3rem, 7vw, 5.4rem);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      max-width: 9.2ch;
+    }
+
+    .hero-copy p {
+      margin: 22px 0 0;
+      max-width: 36rem;
+      font-size: clamp(1rem, 1.8vw, 1.12rem);
+      line-height: 1.72;
+      color: var(--ink-soft);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-top: 28px;
+    }
+
+    .mini-domain {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 54px;
+      padding: 12px 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid var(--line);
+      color: var(--ink-soft);
+      font-weight: 800;
+    }
+
+    .mini-domain strong {
+      color: var(--ink);
+    }
+
+    .hero-points {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .hero-points article {
+      padding: 18px 16px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .hero-points strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--primary-deep);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-points span {
+      color: var(--ink-soft);
+      line-height: 1.54;
+      font-size: 0.95rem;
+    }
+
+    .hero-workspace {
+      position: relative;
+      padding: 22px;
+      border-radius: 36px;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 260ms var(--ease-out);
+      background:
+        linear-gradient(170deg, rgba(255, 255, 255, 0.76), rgba(241, 246, 255, 0.92)),
+        linear-gradient(140deg, rgba(33, 80, 216, 0.06), rgba(255, 127, 80, 0.06));
+    }
+
+    .hero-workspace::before {
+      content: "";
+      position: absolute;
+      inset: 20px;
+      border-radius: 26px;
+      border: 1px solid rgba(33, 80, 216, 0.08);
+      pointer-events: none;
+    }
+
+    .workspace-orb {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(6px);
+      opacity: 0.84;
+      animation: float-soft 8s var(--ease-out) infinite alternate;
+    }
+
+    .workspace-orb.one {
+      top: 18px;
+      right: 24px;
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.9), rgba(90, 132, 255, 0.52));
+    }
+
+    .workspace-orb.two {
+      left: 14px;
+      bottom: 30px;
+      width: 118px;
+      height: 118px;
+      background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.88), rgba(255, 127, 80, 0.48));
+      animation-duration: 9.2s;
+    }
+
+    .workspace-badge {
+      position: absolute;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 15px;
+      border-radius: 999px;
+      background: rgba(24, 35, 64, 0.8);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 18px 34px rgba(24, 35, 64, 0.18);
+      animation: badge-hop 7s var(--ease-out) infinite alternate;
+    }
+
+    .workspace-badge::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #8cf7ce, #fff7bf);
+    }
+
+    .workspace-badge.left {
+      top: 92px;
+      left: 12px;
+    }
+
+    .workspace-badge.right {
+      right: 16px;
+      bottom: 26px;
+      animation-duration: 8.4s;
+    }
+
+    .workspace-frame {
+      position: relative;
+      margin-top: 34px;
+      padding: 16px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(33, 80, 216, 0.08);
+      box-shadow: var(--shadow-xl);
+      transform: translateZ(38px);
+    }
+
+    .frame-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .frame-dots {
+      display: inline-flex;
+      gap: 8px;
+    }
+
+    .frame-dots span {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: rgba(24, 35, 64, 0.12);
+    }
+
+    .frame-dots span:first-child {
+      background: #ff7358;
+    }
+
+    .frame-dots span:nth-child(2) {
+      background: #ffbe53;
+    }
+
+    .frame-dots span:nth-child(3) {
+      background: #6fda8d;
+    }
+
+    .frame-label {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(33, 80, 216, 0.07);
+      color: var(--primary-deep);
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.78fr) minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .mock-panel {
+      position: relative;
+      display: grid;
+      gap: 14px;
+      padding: 20px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--line);
+      min-height: 100%;
+    }
+
+    .mock-panel.preview {
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.96));
+    }
+
+    .panel-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(33, 80, 216, 0.08);
+      color: var(--primary-deep);
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+
+    .mock-title {
+      margin: 0;
+      color: var(--primary-deep);
+      font-size: 1.35rem;
+      line-height: 1.05;
+    }
+
+    .mock-copy {
+      margin: 0;
+      color: var(--ink-soft);
+      line-height: 1.58;
+      font-size: 0.94rem;
+    }
+
+    .field-stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      color: var(--primary-deep);
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .field-display,
+    .select-display {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .field-display span,
+    .select-display span {
+      color: #8c96b1;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .template-note {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(33, 80, 216, 0.06);
+      color: var(--ink-soft);
+      line-height: 1.55;
+      font-size: 0.9rem;
+    }
+
+    .preview-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .preview-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(20, 157, 104, 0.1);
+      color: #14885e;
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .preview-status::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #14b171;
+      box-shadow: 0 0 0 6px rgba(20, 177, 113, 0.1);
+    }
+
+    .preview-stage {
+      display: grid;
+      gap: 14px;
+    }
+
+    .control-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .control-chip {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(33, 80, 216, 0.06);
+      color: var(--primary-deep);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .slip-sheet {
+      position: relative;
+      overflow: hidden;
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(33, 80, 216, 0.12);
+      background:
+        radial-gradient(circle at top right, rgba(90, 132, 255, 0.16), transparent 28%),
+        linear-gradient(180deg, #f8fbff 0%, #edf4ff 100%);
+      min-height: 280px;
+    }
+
+    .slip-sheet::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 20px;
+      border: 1px dashed rgba(33, 80, 216, 0.16);
+      pointer-events: none;
+    }
+
+    .slip-card {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid rgba(33, 80, 216, 0.32);
+      box-shadow: 0 20px 40px rgba(24, 35, 64, 0.1);
+    }
+
+    .photo-block {
+      display: grid;
+      place-items: center;
+      border-radius: 20px;
+      min-height: 126px;
+      background:
+        linear-gradient(135deg, rgba(33, 80, 216, 0.12), rgba(90, 132, 255, 0.22)),
+        linear-gradient(180deg, #f9fbff, #ecf3ff);
+      border: 1px solid rgba(33, 80, 216, 0.14);
+      color: var(--primary-deep);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.84rem;
+    }
+
+    .slip-copy {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .slip-copy .slip-tag {
+      width: fit-content;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 127, 80, 0.12);
+      color: #d0633e;
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .student-name {
+      margin: 0;
+      font-family: 'Fredoka', cursive;
+      font-size: 2rem;
+      line-height: 1;
+      color: #163798;
+      letter-spacing: -0.03em;
+    }
+
+    .slip-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .slip-meta span {
+      padding: 9px 11px;
+      border-radius: 14px;
+      background: rgba(33, 80, 216, 0.08);
+      color: var(--ink);
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+    .slip-copy p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .offer-card {
+      display: grid;
+      gap: 14px;
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(33, 80, 216, 0.07), rgba(255, 127, 80, 0.08));
+      border: 1px solid rgba(33, 80, 216, 0.12);
+    }
+
+    .offer-title {
+      margin: 0;
+      font-size: 1.2rem;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+
+    .offer-card p {
+      margin: 0;
+      color: var(--ink-soft);
+      line-height: 1.58;
+      font-size: 0.92rem;
+    }
+
+    .offer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .offer-option {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(33, 80, 216, 0.1);
+    }
+
+    .offer-option strong {
+      display: block;
+      color: var(--primary-deep);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .offer-option span {
+      display: block;
+      margin-top: 8px;
+      font-family: 'Fredoka', cursive;
+      font-size: 1.5rem;
+      color: var(--ink);
+    }
+
+    .offer-option p {
+      margin-top: 8px;
+      font-size: 0.88rem;
+    }
+
+    .signal-bar {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      padding: 18px;
+      border-radius: 28px;
+    }
+
+    .signal-item {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid var(--line);
+    }
+
+    .signal-item strong {
+      display: block;
+      margin-bottom: 10px;
+      font-family: 'Fredoka', cursive;
+      color: var(--primary-deep);
+      font-size: clamp(1.45rem, 2vw, 1.9rem);
+      letter-spacing: -0.04em;
+    }
+
+    .signal-item span {
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 0 4px;
+    }
+
+    .section-title {
+      margin: 0;
+      max-width: 10ch;
+      font-size: clamp(2.15rem, 5vw, 3.9rem);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+    }
+
+    .section-copy {
+      margin: 0;
+      max-width: 36rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card {
+      position: relative;
+      padding: 24px;
+      border-radius: 28px;
+      overflow: hidden;
+      transition:
+        transform 220ms var(--ease-out),
+        box-shadow 220ms var(--ease-out),
+        border-color 220ms var(--ease-out);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
+      border-color: rgba(33, 80, 216, 0.18);
+    }
+
+    .feature-kicker {
+      display: inline-flex;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(33, 80, 216, 0.08);
+      color: var(--primary-deep);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .feature-card h3 {
+      margin: 18px 0 0;
+      font-size: clamp(1.7rem, 3vw, 2.2rem);
+      line-height: 1.04;
+      color: var(--ink);
+    }
+
+    .feature-card p {
+      margin: 14px 0 0;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+
+    .feature-card ul {
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .feature-card li {
+      position: relative;
+      padding-left: 20px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+
+    .feature-card li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.58em;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    .workflow-wrap {
+      display: grid;
+      gap: 22px;
+      padding: clamp(24px, 4vw, 36px);
+      border-radius: 32px;
+    }
+
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .step-card {
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .step-number {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: linear-gradient(135deg, var(--primary-deep), #4f7aff);
+      color: #ffffff;
+      font-weight: 900;
+    }
+
+    .step-card h3 {
+      margin: 18px 0 10px;
+      font-size: 1.55rem;
+      line-height: 1.04;
+      color: var(--ink);
+    }
+
+    .step-card p {
+      margin: 0;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+
+    .step-card strong {
+      display: block;
+      margin-top: 16px;
+      color: var(--primary-deep);
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .final-panel {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 24px;
+      padding: clamp(28px, 5vw, 44px);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at top left, rgba(90, 132, 255, 0.22), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(255, 127, 80, 0.18), transparent 26%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.84), rgba(242, 247, 255, 0.96));
+    }
+
+    .final-panel h2 {
+      margin: 0;
+      font-size: clamp(2.3rem, 5vw, 4.2rem);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      max-width: 11ch;
+      color: var(--ink);
+    }
+
+    .final-panel p {
+      margin: 14px 0 0;
+      max-width: 38rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      font-size: 1.04rem;
+    }
+
+    .footer-note {
+      padding: 10px 2px 0;
+      color: var(--ink-soft);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .js .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity 760ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: calc(var(--delay, 0) * 110ms);
+    }
+
+    .js .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes float-soft {
+      from {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+
+      to {
+        transform: translate3d(16px, -18px, 0) scale(1.06);
+      }
+    }
+
+    @keyframes badge-hop {
+      from {
+        transform: translate3d(0, 0, 0);
+      }
+
+      to {
+        transform: translate3d(0, -10px, 0);
+      }
+    }
+
+    @media (max-width: 1180px) {
+      .hero,
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-workspace {
+        min-height: auto;
+      }
+
+      .signal-bar,
+      .features-grid,
+      .workflow-grid,
+      .final-panel {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .final-panel > div:last-child {
+        justify-self: start;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell {
+        width: min(100vw - 18px, 1360px);
+        padding: 14px 0 34px;
+      }
+
+      .site-header {
+        top: 8px;
+        padding: 16px;
+        border-radius: 24px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .header-meta {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .header-cta,
+      .hero-cta,
+      .final-cta {
+        width: 100%;
+      }
+
+      .headline,
+      .section-title,
+      .final-panel h2 {
+        max-width: none;
+      }
+
+      .hero-copy,
+      .hero-workspace {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .hero-points,
+      .signal-bar,
+      .features-grid,
+      .workflow-grid,
+      .final-panel,
+      .offer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        align-items: stretch;
+      }
+
+      .mini-domain {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .workspace-badge {
+        font-size: 0.7rem;
+      }
+
+      .workspace-frame {
+        padding: 12px;
+      }
+
+      .mock-panel {
+        padding: 18px;
+      }
+
+      .slip-card {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-block {
+        min-height: 110px;
+      }
+
+      .section-heading {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .final-panel {
+        padding: 28px 22px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .js .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="scroll-progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <div class="page-shell">
+    <header class="site-header reveal is-visible" style="--delay:0">
+      <a class="brand-lockup" href="/" aria-label="naslippy home">
+        <span class="brand-mark" aria-hidden="true">n</span>
+        <span class="brand-copy">
+          <strong>naslippy</strong>
+          <span>Custom name slip generator</span>
+        </span>
+      </a>
+
+      <div class="header-meta">
+        <div class="header-domain">nameslip.linktdmc.com</div>
+        <a class="header-cta" href="https://nameslip.linktdmc.com" target="_blank" rel="noreferrer">Generate Now</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy reveal" style="--delay:1">
+          <span class="eyebrow">Inspired by the live customise workflow</span>
+          <h1 class="headline">Custom slips that look ready before they get printed.</h1>
+          <p>naslippy now introduces the same feel as the live page at nameslip.linktdmc.com/customise/: a bright setup panel, instant preview direction, clean controls, and a direct path into the real generator.</p>
+
+          <div class="hero-actions">
+            <a class="hero-cta" href="https://nameslip.linktdmc.com" target="_blank" rel="noreferrer">Generate Now</a>
+            <div class="mini-domain">
+              <strong>Live link:</strong>
+              <span>nameslip.linktdmc.com</span>
+            </div>
+          </div>
+
+          <div class="hero-points">
+            <article>
+              <strong>Template First</strong>
+              <span>Start with an admin template and move straight into a polished slip layout.</span>
+            </article>
+            <article>
+              <strong>Preview Ready</strong>
+              <span>Show visitors the product visually before they even open the tool.</span>
+            </article>
+            <article>
+              <strong>Designer Flow</strong>
+              <span>Mirror the real print and design handoff so the landing page feels connected.</span>
+            </article>
+          </div>
+        </div>
+
+        <div class="hero-workspace reveal" id="heroWorkspace" style="--delay:2" aria-label="naslippy workspace preview">
+          <div class="workspace-orb one" aria-hidden="true"></div>
+          <div class="workspace-orb two" aria-hidden="true"></div>
+          <div class="workspace-badge left">Live Preview</div>
+          <div class="workspace-badge right">Customise Controls</div>
+
+          <div class="workspace-frame">
+            <div class="frame-top">
+              <div class="frame-dots" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <div class="frame-label">naslippy / customise</div>
+            </div>
+
+            <div class="workspace-grid">
+              <article class="mock-panel">
+                <span class="panel-kicker">Student Details</span>
+                <h2 class="mock-title">Fill the slip basics first.</h2>
+                <p class="mock-copy">A cleaner homepage now reflects the same setup logic as the real tool: enter the essentials, pick a template, and move into preview.</p>
+
+                <div class="field-stack">
+                  <div class="field">
+                    <label>Full Name</label>
+                    <div class="field-display">Nadiya T <span>student name</span></div>
+                  </div>
+                  <div class="field">
+                    <label>Std / Standard</label>
+                    <div class="field-display">12 <span>class level</span></div>
+                  </div>
+                  <div class="field">
+                    <label>School Name</label>
+                    <div class="field-display">Link Public School <span>school label</span></div>
+                  </div>
+                  <div class="field">
+                    <label>Slip Template</label>
+                    <div class="select-display">Rounded Photo Card <span>template selected</span></div>
+                  </div>
+                </div>
+
+                <a class="mock-cta" href="https://nameslip.linktdmc.com" target="_blank" rel="noreferrer">Generate Now</a>
+                <div class="template-note">The main landing CTA now points directly to nameslip.linktdmc.com so visitors can move from homepage to tool in one click.</div>
+              </article>
+
+              <article class="mock-panel preview">
+                <div class="preview-top">
+                  <div>
+                    <span class="panel-kicker">Live Preview</span>
+                    <h2 class="mock-title">Preview the customised slip instantly.</h2>
+                  </div>
+                  <div class="preview-status">Preview Active</div>
+                </div>
+
+                <div class="preview-stage">
+                  <div class="control-strip">
+                    <span class="control-chip">Background</span>
+                    <span class="control-chip">Photo Shape</span>
+                    <span class="control-chip">Typography</span>
+                    <span class="control-chip">Frame</span>
+                  </div>
+
+                  <div class="slip-sheet">
+                    <div class="slip-card">
+                      <div class="photo-block">Photo</div>
+                      <div class="slip-copy">
+                        <span class="slip-tag">Featured Slip</span>
+                        <h3 class="student-name">Nadiya T</h3>
+                        <div class="slip-meta">
+                          <span>Std 12</span>
+                          <span>Commerce</span>
+                          <span>A Division</span>
+                        </div>
+                        <p>Balanced spacing, brighter framing, and a print-ready look borrowed from the live customise interface.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="offer-card">
+                    <span class="panel-kicker">Designer Support</span>
+                    <h3 class="offer-title">Ready to print or only need the design?</h3>
+                    <p>The homepage now echoes the real handoff experience too, including the print-plus-delivery and design-only direction shown inside the live tool.</p>
+                    <div class="offer-grid">
+                      <div class="offer-option">
+                        <strong>Print + Delivery</strong>
+                        <span>Rs 99</span>
+                        <p>One sheet includes 27 name slips.</p>
+                      </div>
+                      <div class="offer-option">
+                        <strong>Design Only</strong>
+                        <span>Rs 30</span>
+                        <p>Share only the final design when printing is not needed.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="signal-bar reveal" style="--delay:1" aria-label="naslippy highlights">
+        <div class="signal-item">
+          <strong>Setup</strong>
+          <span>Homepage messaging now follows the real Student Details workflow instead of a generic product intro.</span>
+        </div>
+        <div class="signal-item">
+          <strong>Preview</strong>
+          <span>The hero visually mirrors the Live Preview side of the actual customise page.</span>
+        </div>
+        <div class="signal-item">
+          <strong>Controls</strong>
+          <span>Background, photo, typography, and frame ideas are surfaced as part of the story.</span>
+        </div>
+        <div class="signal-item">
+          <strong>Launch</strong>
+          <span>Every Generate Now button now opens https://nameslip.linktdmc.com.</span>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-heading reveal" style="--delay:0">
+          <h2 class="section-title">A homepage that feels tied to the real tool.</h2>
+          <p class="section-copy">Instead of presenting naslippy like a separate marketing concept, this index page now borrows the live customise page's tone, panel structure, and visual rhythm so users feel continuity before and after the click.</p>
+        </div>
+      </section>
+
+      <section class="features-grid">
+        <article class="feature-card reveal" style="--delay:0">
+          <span class="feature-kicker">01 / Interface Match</span>
+          <h3>The landing page now speaks the same UI language.</h3>
+          <p>Blue gradient framing, rounded glass panels, control chips, and preview cards all reference the customise experience you shared.</p>
+          <ul>
+            <li>Brighter brand header and panel-based composition</li>
+            <li>Mock Student Details and Live Preview layout</li>
+            <li>Homepage visuals now feel product-led</li>
+          </ul>
+        </article>
+
+        <article class="feature-card reveal" style="--delay:1">
+          <span class="feature-kicker">02 / Clear Product Story</span>
+          <h3>Visitors understand the flow before they click.</h3>
+          <p>The content is now arranged around the actual slip journey: input, customise, preview, and send for print or design support.</p>
+          <ul>
+            <li>Slip templates are part of the hero message</li>
+            <li>Preview and customisation appear side by side</li>
+            <li>Designer support is included in the product narrative</li>
+          </ul>
+        </article>
+
+        <article class="feature-card reveal" style="--delay:2">
+          <span class="feature-kicker">03 / Direct CTA Path</span>
+          <h3>Generate Now points to the correct live domain.</h3>
+          <p>The header, hero, workspace mockup, and closing CTA all direct users to the same live destination: nameslip.linktdmc.com.</p>
+          <ul>
+            <li>Header CTA updated</li>
+            <li>Main hero CTA updated</li>
+            <li>Final section CTA updated</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="workflow-wrap reveal" style="--delay:1">
+        <div class="section-heading">
+          <h2 class="section-title">How the page now guides the click.</h2>
+          <p class="section-copy">The revised index page compresses the user story into three easy moments: understand the workflow, trust the preview, then open the live generator.</p>
+        </div>
+
+        <div class="workflow-grid">
+          <article class="step-card reveal is-visible" style="--delay:0">
+            <div class="step-number">1</div>
+            <h3>See the setup</h3>
+            <p>The first screen now introduces the same Student Details mindset users meet inside the tool.</p>
+            <strong>Less disconnect, more clarity</strong>
+          </article>
+
+          <article class="step-card reveal is-visible" style="--delay:1">
+            <div class="step-number">2</div>
+            <h3>Trust the preview</h3>
+            <p>The right side shows a cleaner custom slip and designer support story inspired by the live customise page.</p>
+            <strong>Confidence before action</strong>
+          </article>
+
+          <article class="step-card reveal is-visible" style="--delay:2">
+            <div class="step-number">3</div>
+            <h3>Launch the generator</h3>
+            <p>Every prominent CTA now takes the visitor straight to the live tool at nameslip.linktdmc.com.</p>
+            <strong>One path, no confusion</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="final-panel reveal" style="--delay:1">
+        <div>
+          <h2>Open naslippy and start generating now.</h2>
+          <p>Jump into the live name slip experience, customise the layout, preview the final result, and move toward print-ready output from the same flow.</p>
+        </div>
+
+        <div>
+          <a class="final-cta" href="https://nameslip.linktdmc.com" target="_blank" rel="noreferrer">Generate Now</a>
+        </div>
+      </section>
+    </main>
+
+    <p class="footer-note">naslippy landing page aligned to the live customise experience at nameslip.linktdmc.com.</p>
+  </div>
+
+  <script>
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealItems = document.querySelectorAll('.reveal');
+    const progressBar = document.getElementById('progressBar');
+    const heroWorkspace = document.getElementById('heroWorkspace');
+
+    function revealOnLoad() {
+      if (prefersReducedMotion) {
+        revealItems.forEach((item) => item.classList.add('is-visible'));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.16 });
+
+      revealItems.forEach((item) => observer.observe(item));
+    }
+
+    function updateScrollProgress() {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+      progressBar.style.transform = `scaleX(${Math.min(Math.max(progress, 0), 1)})`;
+    }
+
+    function bindHeroTilt() {
+      if (prefersReducedMotion || !heroWorkspace) {
+        return;
+      }
+
+      heroWorkspace.addEventListener('pointermove', (event) => {
+        const bounds = heroWorkspace.getBoundingClientRect();
+        const x = (event.clientX - bounds.left) / bounds.width;
+        const y = (event.clientY - bounds.top) / bounds.height;
+        const rotateY = (x - 0.5) * 7;
+        const rotateX = (0.5 - y) * 6;
+        heroWorkspace.style.transform = `perspective(1600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      heroWorkspace.addEventListener('pointerleave', () => {
+        heroWorkspace.style.transform = 'perspective(1600px) rotateX(0deg) rotateY(0deg)';
+      });
+    }
+
+    revealOnLoad();
+    updateScrollProgress();
+    bindHeroTilt();
+
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    window.addEventListener('resize', updateScrollProgress);
+  </script>
+</body>
+
+</html>
